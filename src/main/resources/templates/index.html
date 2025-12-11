@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Kitap Kütüphanesi</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}"/>
+    <style>
+        body { background: #f8f9fa; }
+        .container { margin-top: 50px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <h1 class="text-center mb-5">Java Full Stack Kitap Kütüphanesi</h1>
+
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5>Yeni Kitap Ekle</h5>
+                    </div>
+                    <div class="card-body">
+                        <form th:action="@{/add}" th:object="${book}" method="post" class="row g-3">
+                            <div class="col-md-4">
+                                <input type="text" th:field="*{title}" class="form-control" placeholder="Kitap Adı" required/>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" th:field="*{author}" class="form-control" placeholder="Yazar" required/>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" th:field="*{year}" class="form-control" placeholder="Yıl" required/>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-success w-100">Ekle</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header bg-dark text-white">
+                        <h5>Kitap Listesi</h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover m-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Kitap Adı</th>
+                                        <th>Yazar</th>
+                                        <th>Yıl</th>
+                                        <th>İşlem</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="b : ${books}">
+                                        <td th:text="${b.id}"></td>
+                                        <td th:text="${b.title}"></td>
+                                        <td th:text="${b.author}"></td>
+                                        <td th:text="${b.year}"></td>
+                                        <td>
+                                            <a th:href="@{/delete/{id}(id=${b.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Silmek istediğinize emin misiniz?')">Sil</a>
+                                        </td>
+                                    </tr>
+                                    <tr th:if="${#lists.isEmpty(books)}">
+                                        <td colspan="5" class="text-center text-muted">Henüz kitap eklenmemiş.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <a href="/logout" class="btn btn-secondary">Çıkış Yap</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

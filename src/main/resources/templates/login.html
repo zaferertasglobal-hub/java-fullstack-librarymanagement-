@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Giriş Yap</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}"/>
+    <style>
+        body { background: linear-gradient(to right, #6a11cb, #2575fc); height: 100vh; display: flex; align-items: center; justify-content: center; }
+        .login-card { max-width: 400px; width: 100%; }
+    </style>
+</head>
+<body>
+    <div class="card login-card shadow-lg">
+        <div class="card-body p-5">
+            <h3 class="card-title text-center mb-4">Java Full Stack Kütüphane</h3>
+            <form th:action="@{/login}" method="post">
+                <div class="mb-3">
+                    <label class="form-label">Kullanıcı adı</label>
+                    <input type="text" name="username" class="form-control" placeholder="zafer" required autofocus/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Şifre</label>
+                    <input type="password" name="password" class="form-control" placeholder="123456" required/>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Giriş Yap</button>
+            </form>
+            <div class="text-danger text-center mt-3" th:if="${param.error}">Geçersiz kullanıcı adı veya şifre!</div>
+            <div class="text-success text-center mt-3" th:if="${param.logout}">Başarıyla çıkış yapıldı.</div>
+            <div class="text-muted text-center mt-4 small">
+                İpucu: zafer / 123456
+            </div>
+        </div>
+    </div>
+</body>
+</html>
